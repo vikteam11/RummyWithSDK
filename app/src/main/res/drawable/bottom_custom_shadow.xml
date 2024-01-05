@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Drop Shadow Stack -->
+    <item>
+        <shape>
+            <padding
+                    android:bottom="2dp"
+                    android:left="2dp"
+                    android:right="2dp"/>
+            <solid android:color="#f7f6fb" />
+            <corners android:bottomLeftRadius="16dp" android:bottomRightRadius="16dp" />
+
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <padding
+                    android:bottom="2dp"
+                    android:left="2dp"
+                    android:right="2dp"/>
+
+            <solid android:color="#02000000" />
+            <corners android:bottomLeftRadius="16dp" android:bottomRightRadius="16dp" />
+
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <padding
+                    android:bottom="2dp"
+                    android:left="2dp"
+                    android:right="2dp"/>
+
+            <solid android:color="#02000000" />
+            <corners android:bottomLeftRadius="16dp" android:bottomRightRadius="16dp" />
+
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <padding
+                    android:bottom="2dp"
+                    android:left="2dp"
+                    android:right="2dp"
+                    android:top="2dp"/>
+
+            <solid android:color="#03000000" />
+            <corners android:bottomLeftRadius="16dp" android:bottomRightRadius="16dp" />
+
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <padding
+                    android:bottom="2dp"
+                    android:left="2dp"
+                    android:right="2dp"/>
+
+            <solid android:color="#03000000" />
+            <corners android:bottomLeftRadius="16dp" android:bottomRightRadius="16dp" />
+
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/white" />
+            <corners android:bottomLeftRadius="16dp" android:bottomRightRadius="16dp" />
+        </shape>
+    </item>
+
+</layer-list>

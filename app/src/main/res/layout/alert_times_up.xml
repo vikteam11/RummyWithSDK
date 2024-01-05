@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data><variable
+        name="colorcode"
+        type="String" />
+        <import type="android.graphics.Color"/>
+    </data>
+    <com.loopeer.shadow.ShadowView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:cornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView46"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_time_up" />
+
+            <TextView
+                android:id="@+id/txtMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Quiz Times Up!"
+                android:textColor="@color/gunmetal"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/imageView46" />
+
+
+                <Button
+                    android:id="@+id/btnContinue"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="Check Rank"
+                    android:backgroundTint="@{Color.parseColor(colorcode)}"
+                    android:background="@color/blue"
+                    app:layout_constraintTop_toBottomOf="@+id/txtMsg"
+                    android:textColor="@color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.loopeer.shadow.ShadowView>
+</layout>

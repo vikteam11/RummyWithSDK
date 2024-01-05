@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <import type="android.text.TextUtils"/>
+        <variable
+            name="model"
+            type="com.rummytitans.playcashrummyonline.cardgame.models.CarouselModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            setImageUrl="@{model.Image}"
+            android:scaleType="fitXY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{ model.viewType==1 ?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            setImage="@{model.ImageIcon}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:visibility="@{model.ImageIcon>0?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/ivGames"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottieFile="@{model.lottieResourceImage}"
+            android:visibility="@{TextUtils.isEmpty(model.lottieResourceImage) ? View.GONE :View.VISIBLE}"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="304dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/rubik_bold"
+            android:gravity="center_horizontal"
+            android:text="@{model.Title}"
+            android:textColor="@color/text_color8"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/txtDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="   dfdklgjkdfghdfskjghdflgkdfhgj dfdklgjkdfghdfskjghdflgkdfhgj" />
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="304dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/rubik_regular"
+            android:gravity="center_horizontal"
+            android:text="@{model.Description}"
+            android:textColor="@color/text_color8"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+            tools:text="dfdklgjkdfghdfskjghdflgkdfhgj dfdklgjkdfghdfskjghdflgkdfhgj dfdklgjkdfghdfskjghdflgkdfhgj dfdklgjkdfghdfskjghdflgkdfhgj dfdklgjkdfghdfskjghdflgkdfhgj" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

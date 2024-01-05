@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.Color" />
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+        <import type="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+        <variable
+            name="sheetListner"
+            type="com.rummytitans.playcashrummyonline.cardgame.ui.appupdate.BottomSheetEvents" />
+
+        <variable
+            name="viewModel"
+            type="com.rummytitans.playcashrummyonline.cardgame.ui.appupdate.AppUpdateViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0F000000">
+
+        <View
+            tools:visibility="visible"
+            android:visibility="@{viewModel.bottomSheetStateEvent==BottomSheetBehavior.STATE_HIDDEN?View.GONE:View.VISIBLE}"
+            android:onClick="@{()->viewModel.versionResp.ForceUpdate?null:viewModel.navigator.goBack()}"
+            android:background="#3000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <include
+            android:id="@+id/bottomSheet"
+            bind:sheetListner="@{sheetListner}"
+            layout="@layout/bottom_sheet_app_update"
+            bind:viewModel="@{viewModel}" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
