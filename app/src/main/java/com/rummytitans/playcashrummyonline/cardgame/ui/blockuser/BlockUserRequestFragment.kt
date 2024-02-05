@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import com.rummytitans.playcashrummyonline.cardgame.ui.WebViewActivity
-import com.rummytitans.sdk.cardgame.ui.WebChatActivity
 
 class BlockUserRequestFragment : BaseFragment()  {
     private lateinit var binding:FragmentBlockUserRequestBinding
@@ -66,7 +65,7 @@ class BlockUserRequestFragment : BaseFragment()  {
                 AnalyticsKey.Keys.Screen to AnalyticsKey.Screens.BlockScreen
             )
         )
-        startActivity(Intent(requireActivity(), WebChatActivity::class.java))
+
     }
 
     fun onCallClick() {

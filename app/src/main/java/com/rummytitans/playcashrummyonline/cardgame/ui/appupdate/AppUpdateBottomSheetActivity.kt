@@ -63,7 +63,7 @@ class AppUpdateBottomSheetActivity : BaseAppUpdateActivity() ,BottomSheetEvents{
                                 mInAppUpdateHelper?.startInAppUpdateIntent()
                             else
                                 sendToPlayStore(this@AppUpdateBottomSheetActivity, packageName)
-                            onSheetClose()
+                            onSheetClose(false)
                         }
 
                     else -> onDownloadPerform()
@@ -121,19 +121,20 @@ class AppUpdateBottomSheetActivity : BaseAppUpdateActivity() ,BottomSheetEvents{
         onSheetClose()
     }
 
-    override fun onSheetClose(){
+    override fun onSheetClose(finishActivity: Boolean){
         if (mViewModel.versionResp.ForceUpdate)
             finishAffinity()
         else{
             //updateDialog?.dismiss()
             mViewModel._bottomSheetStateEvent.value= BottomSheetBehavior.STATE_HIDDEN
-            Handler(mainLooper).postDelayed(
-                { finish() },500)
+            Handler(mainLooper)
+                .postDelayed({
+                    finish()
+                }, 300)
         }
     }
-
 }
 
 interface BottomSheetEvents {
-    fun onSheetClose()
+    fun onSheetClose(finishActivity:Boolean=true)
 }

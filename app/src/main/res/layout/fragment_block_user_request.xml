@@ -309,7 +309,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scaleType="fitEnd"
-        android:tint="@color/text_color8"
+        app:tint="@color/text_color8"
         android:src="@drawable/img_blocked_usersupport"
         android:layout_marginHorizontal="24dp"
         app:layout_constraintStart_toStartOf="parent"

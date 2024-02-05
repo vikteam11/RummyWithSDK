@@ -183,19 +183,13 @@
             android:screenOrientation="portrait" />
         <!-- Login Module end -->
 
-        <!-- Contests -->
-         <activity
-            android:exported="false"
-            android:name="com.rummytitans.playcashrummyonline.cardgame.ui.verifications.VerificationActivity"
-            android:screenOrientation="portrait"
-             android:configChanges="orientation|screenSize"
-             android:windowSoftInputMode="adjustResize" />
+
 
 
 
          <activity
             android:exported="false"
-            android:name="com.rummytitans.playcashrummyonline.cardgame.ui.appupdate.AppUpdateActivity"
+            android:name=".ui.appupdate.AppUpdateActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -231,39 +225,11 @@
         </provider>
 
 
-
-
-
-         <activity
-            android:exported="false"
-            android:name="com.rummytitans.playcashrummyonline.cardgame.ui.profile.updatePhone.UpdatePhoneActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateVisible" />
-
-
         <activity
             android:exported="false"
             android:name=".utils.permissions.PermissionActivity"
             android:theme="@style/Theme.DialogActivity" />
 
-
-
-
-        <activity android:name=".ui.verifications.AddressVerificationActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/addressVerificationLight"
-            android:screenOrientation="portrait" />
-
-
-        <activity
-            android:exported="false"
-            android:name=".ui.verifications.WebAutoAddressVerifyActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.profile.ProfileActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            />
 
         <activity
             android:name="com.rummytitans.playcashrummyonline.cardgame.ui.onboarding.OnBoardingActivity"

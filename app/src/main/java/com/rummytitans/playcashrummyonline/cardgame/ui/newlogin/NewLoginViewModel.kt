@@ -18,8 +18,10 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import com.appsflyer.AppsFlyerLib
 import com.google.gson.Gson
-import com.rummytitans.sdk.cardgame.utils.locationservices.utils.emptyJson
+import com.google.gson.JsonObject
+
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.json.JSONObject
 import java.lang.IllegalArgumentException
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -35,7 +37,7 @@ class NewLoginViewModel @Inject constructor(
     val OTP = 2
     var TWO_WAY_PROCESS = 3
     val loginStep = ObservableInt(MOBILE_NUMBER)
-
+    var resendOTPCount=0
     val mobileNumber = ObservableField("")
     val referCode = ObservableBoolean(false)
     val userReferCode = ObservableField("")
@@ -63,7 +65,7 @@ class NewLoginViewModel @Inject constructor(
     var plainText = ObservableField<String>()
     var mEmail = ""
     var mPassword = ""
-
+    private val emptyJson = JSONObject()
     var appsFlyerId = ""
 
     init {
@@ -95,7 +97,10 @@ class NewLoginViewModel @Inject constructor(
                 AnalyticsKey.Keys.ButtonName to if (isResendOTP) AnalyticsKey.Values.ReSendOTP else AnalyticsKey.Values.SendOTP,
                 AnalyticsKey.Keys.Screen to AnalyticsKey.Screens.LOGIN,
                 AnalyticsKey.Keys.MobileNo to mobileNumber.get()
-            )
+            ).apply {
+                if (isResendOTP)
+                    putInt(AnalyticsKey.Keys.ResendCount, resendOTPCount)
+            }
         )
 
         if (isParentLoading.get())
@@ -138,7 +143,7 @@ class NewLoginViewModel @Inject constructor(
                 appsFlyerId
             ), {
                 prefs.referCode=""
-                prefs.loginType = "MOBILE"
+                //prefs.loginType = "MOBILE"
                 loginModel = gson.fromJson(gson.toJson(it.Response), LoginResponse::class.java)
                 fireEvent(loginModel, it.IsRegister)
                 verificationCheckup(it)
@@ -186,8 +191,9 @@ class NewLoginViewModel @Inject constructor(
         analyticsHelper.setUserID("" + loginModel?.UserId)
         analyticsHelper.setUserDataToTools(loginModel)
 
-        analyticsHelper.setJsonUserProperty(emptyJson().apply {
-            put(AnalyticsKey.Properties.LoginType, "Mobile")
+        analyticsHelper.setJsonUserProperty(emptyJson.apply {
+            put(AnalyticsKey.Properties.LoginType, prefs.loginType.toString())
+            put(AnalyticsKey.Keys.ReferCode, userReferCode.get().toString())
             put(AnalyticsKey.Properties.Mobile, loginModel?.Mobile)
             put(AnalyticsKey.Properties.Email, loginModel?.Email)
             put(AnalyticsKey.Properties.UserID, loginModel?.UserId)
@@ -273,7 +279,10 @@ class NewLoginViewModel @Inject constructor(
     fun resendOTP() {
         finishTimer()
         if (loginStep.get() == TWO_WAY_PROCESS) loginByEmail(mEmail, mPassword)
-        else loginOrRegisterByMobile(isResendOTP = true)
+        else{
+            resendOTPCount += 1
+            loginOrRegisterByMobile(isResendOTP = true)
+        }
     }
 
     fun editMobileNumber() {

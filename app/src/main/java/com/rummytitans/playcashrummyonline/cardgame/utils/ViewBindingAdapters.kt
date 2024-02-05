@@ -1032,8 +1032,9 @@ fun onChangeBottomSheetState(
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 data.value = newState
-                if (data.value == BottomSheetBehavior.STATE_COLLAPSED || data.value == BottomSheetBehavior.STATE_HIDDEN)
-                    bottomSheetEvent?.onSheetClose()
+                if (data.value == BottomSheetBehavior.STATE_COLLAPSED || data.value == BottomSheetBehavior.STATE_HIDDEN) {
+                    //  bottomSheetEvent?.onSheetClose()
+                }
             }
         })
 }

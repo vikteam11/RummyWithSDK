@@ -19,11 +19,11 @@ import com.appsflyer.AppsFlyerLib
 import com.google.gson.Gson
 import com.rummytitans.playcashrummyonline.cardgame.BuildConfig
 import com.rummytitans.playcashrummyonline.cardgame.models.BlockUserModel
-import com.rummytitans.sdk.cardgame.utils.locationservices.utils.emptyJson
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.json.JSONObject
 import javax.inject.Inject
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
@@ -45,7 +45,7 @@ class OnBoardingViewModel @Inject constructor(
     var advertisingId = ""
     var appsFlyerId = ""
     val isTrueCallerInstalled = ObservableBoolean(false)
-
+    private val emptyJson = JSONObject()
 
     fun onConfirmByUser(button: CompoundButton?, check: Boolean) {
         confirmByUser.set(check)
@@ -169,7 +169,7 @@ class OnBoardingViewModel @Inject constructor(
                 AnalyticsEventsKeys.LOGIN_DONE*/
 
 
-        analyticsHelper.setJsonUserProperty(emptyJson().apply {
+        analyticsHelper.setJsonUserProperty(emptyJson.apply {
             put(AnalyticsKey.Properties.LoginType, AnalyticsKey.Values.TypeTrueCaller)
             put(AnalyticsKey.Properties.Mobile, loginModel?.Mobile)
             put(AnalyticsKey.Properties.Email, loginModel?.Email)

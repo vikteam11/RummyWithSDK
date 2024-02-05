@@ -16,12 +16,13 @@ android {
         applicationId "com.rummytitans.playcashrummyonline.cardgame"
         minSdkVersion 22
         targetSdkVersion 33
-        versionCode 46
-        versionName '1.4.6'
+        versionCode 58
+        versionName '1.5.8'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
+
     dataBinding {
         enabled = true
     }
@@ -38,10 +39,11 @@ android {
     buildTypes {
 
         release {
-            minifyEnabled true
+            //debuggable true
+           /* minifyEnabled true
             shrinkResources true
             multiDexKeepProguard file('multidex-config.pro')
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'*/
         }
     }
 

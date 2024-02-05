@@ -16,9 +16,9 @@ import com.rummytitans.playcashrummyonline.cardgame.databinding.FragmentHelpDesk
 import com.rummytitans.playcashrummyonline.cardgame.ui.WebViewActivity
 import com.rummytitans.playcashrummyonline.cardgame.ui.base.BaseFragment
 import com.rummytitans.playcashrummyonline.cardgame.ui.base.BaseNavigator
+import com.rummytitans.playcashrummyonline.cardgame.ui.common.MainNavigationFragment
 import com.rummytitans.playcashrummyonline.cardgame.ui.more.SupportModel
 import com.rummytitans.playcashrummyonline.cardgame.ui.newlogin.NewLoginActivity
-import com.rummytitans.playcashrummyonline.cardgame.ui.profile.info.MainNavigationFragment
 import com.rummytitans.playcashrummyonline.cardgame.utils.ClickEvent
 import com.rummytitans.playcashrummyonline.cardgame.utils.MyConstants
 import com.rummytitans.playcashrummyonline.cardgame.utils.WebViewUrls

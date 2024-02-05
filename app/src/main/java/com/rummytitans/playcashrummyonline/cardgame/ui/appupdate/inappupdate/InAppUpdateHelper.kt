@@ -12,6 +12,8 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import androidx.core.os.bundleOf
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -21,6 +23,8 @@ import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.gson.Gson
 import com.rummytitans.playcashrummyonline.cardgame.utils.alertDialog.AlertdialogModel
+import com.rummytitans.sdk.cardgame.RummyTitanSDK
+import java.lang.ref.WeakReference
 
 
 class InAppUpdateHelper (
@@ -121,6 +125,7 @@ class InAppUpdateHelper (
                             AnalyticsKey.Keys.UserID to loginModel.UserId)
                     )
                     prefs.isInAppAvailable=true
+
                 }
                 UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS->{
                     analyticsHelper.fireEvent(AnalyticsKey.Names.InAppUpdateDataInProgress)
@@ -137,6 +142,7 @@ class InAppUpdateHelper (
                 inAppUpdateModel= InAppUpdateModel(appUpdateInfo, updateType, requestCode)
                 isInAppUpdateAvailable=appUpdateInfo.updateAvailability()== UpdateAvailability.UPDATE_AVAILABLE && inAppUpdateModel!=null
                 onUpdateAvailable(appUpdateInfo)
+                //onDownloadComplete()
             }
         }
 
@@ -169,19 +175,23 @@ class InAppUpdateHelper (
                 appUpdateManager?.completeUpdate()
             }
         )
-
-        BottomSheetAlertDialog(
-            activity,
-            alertdialogModel = alertModel,
-            colorCode = if(prefs.onSafePlay)prefs.safeColor?:"" else prefs.regularColor?:""
-        ).apply {
-            setCancelable(false)
-            show()
+        val activityRef= WeakReference(activity)
+        activityRef.get()?.let {act->
+            BottomSheetAlertDialog(
+                act,
+                alertdialogModel = alertModel,
+                colorCode = if(prefs.onSafePlay)prefs.safeColor?:"" else prefs.regularColor?:""
+            ).apply {
+                setCancelable(false)
+                show()
+            }
         }
 
     }
 
     private fun removeInstallStateUpdateListener() {
+        Log.e("appUpdate", "removeInstallStateUpdateListener $activity")
+
         installStateUpdatedListener?.let {
             appUpdateManager?.unregisterListener(it)
         }

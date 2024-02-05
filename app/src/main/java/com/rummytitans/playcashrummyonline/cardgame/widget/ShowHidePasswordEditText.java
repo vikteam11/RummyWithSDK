@@ -25,7 +25,7 @@ import com.rummytitans.playcashrummyonline.cardgame.R;
 /**
  * Custom version of EditText that shows and hides password onClick of the visibility icon
  */
-public class ShowHidePasswordEditText extends EditText {
+public class ShowHidePasswordEditText extends androidx.appcompat.widget.AppCompatEditText {
 
     private static final String TAG = ShowHidePasswordEditText.class.getSimpleName();
     private final static String IS_SHOWING_PASSWORD_STATE_KEY = "IS_SHOWING_PASSWORD_STATE_KEY";

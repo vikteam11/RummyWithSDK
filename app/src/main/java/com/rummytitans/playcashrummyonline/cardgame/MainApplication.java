@@ -22,9 +22,11 @@ import com.appsflyer.AppsFlyerLib;
 import com.appsflyer.attribution.AppsFlyerRequestListener;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.interfaces.OnInitCleverTapIDListener;
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener;
 import com.clevertap.android.sdk.pushnotification.amp.CTPushAmpListener;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
 import com.onesignal.OneSignal;
@@ -59,14 +61,16 @@ public class MainApplication extends Application implements LifecycleEventObserv
     public void onCreate() {
         ActivityLifecycleCallback.register(this);
         super.onCreate();
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
+        FirebaseApp.initializeApp(this);
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
+        //FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
         manager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         sAnalytics = GoogleAnalytics.getInstance(this);
         sAnalytics.enableAutoActivityReports(this);
 
         analyticsHelper = new AnalyticsHelper(this, new Gson());
         sAnalytics.newTracker(R.xml.global_tracker).enableAutoActivityTracking(true);
-        initAppsFlyer();
+        //initAppsFlyer();
         initOneSignal();
         initClevertap();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
@@ -114,6 +118,14 @@ public class MainApplication extends Application implements LifecycleEventObserv
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             analyticsHelper.getClervertapHelper().createNotificationChannels();
         }
+        clevertapDefaultInstance.getCleverTapID(new OnInitCleverTapIDListener() {
+            @Override
+            public void onInitCleverTapID(final String cleverTapID) {
+                // Callback on main thread
+                initAppsFlyer(cleverTapID);
+
+            }
+        });
     }
 
 
@@ -128,7 +140,7 @@ public class MainApplication extends Application implements LifecycleEventObserv
         analyticsHelper.fireEvent(key, bundle);
     }
 
-    public void initAppsFlyer() {
+    public void initAppsFlyer(String cleverTapId) {
 
         AppsFlyerConversionListener conversionListener = new AppsFlyerConversionListener() {
             @Override
@@ -187,6 +199,7 @@ public class MainApplication extends Application implements LifecycleEventObserv
             }
         });
         appsFlyerLib.setDebugLog(true);
+        appsFlyerLib.setCustomerUserId(cleverTapId);
 
         appsFlyerLib.subscribeForDeepLink(deepLinkResult -> {
             String deeplinkValue = deepLinkResult.getDeepLink().getDeepLinkValue();

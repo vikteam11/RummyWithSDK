@@ -32,6 +32,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.rummytitans.playcashrummyonline.cardgame.MainApplication
 import com.rummytitans.playcashrummyonline.cardgame.databinding.ActivitySplashBinding
+import com.rummytitans.playcashrummyonline.cardgame.ui.WebViewActivity
 import com.rummytitans.playcashrummyonline.cardgame.ui.appupdate.AppUpdateBottomSheetActivity
 import com.rummytitans.playcashrummyonline.cardgame.ui.base.BaseNavigator
 import com.rummytitans.playcashrummyonline.cardgame.ui.onboarding.OnBoardingActivity
@@ -111,6 +112,7 @@ class SplashActivity : AppCompatActivity(),
         )
 
         getFAInstanceId()
+
     }
 
     private fun getFAInstanceId(){
@@ -194,7 +196,7 @@ class SplashActivity : AppCompatActivity(),
 
     private fun moveToNextScreen(model: VersionModel) {
         //        model.IsAppUpdate=true
-//        model.ForceUpdate=false
+       //model.ForceUpdate=true
         //   model.showUpdateOnSplash = true
         //   model.playStoreApkUpdateFrom = model.UPDATE_FROM_IN_APP_UPDATE
 //        model.UpdateType = APP_UPDATE_FULL_SCREEN
@@ -203,13 +205,13 @@ class SplashActivity : AppCompatActivity(),
         when {
             model.RunOnWeb -> {
                 if (TextUtils.isEmpty(model.WebURl) || !URLUtil.isValidUrl(model.WebURl)) return
-               /* startActivity(
+                startActivity(
                     Intent(this, WebViewActivity::class.java)
                         .putExtra(MyConstants.INTENT_PASS_WEB_URL, model.WebURl)
                         .putExtra(
                             MyConstants.INTENT_PASS_WEB_TITLE, getStringResource(R.string.app_name)
                         )
-                )*/
+                )
             }
 
             model.IsAppUpdate -> {

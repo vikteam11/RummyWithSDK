@@ -104,6 +104,7 @@ object AnalyticsKey {
         const val Language = "Language"
         const val MobileNo = "MobileNo"
         const val OTP = "OTP"
+        const val ResendCount="ResendCount"
         const val ApiFailedMessage = "ApiFailedMessage"
         const val ReferCode = "ReferCode"
         const val UserID = "UserID"

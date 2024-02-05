@@ -25,8 +25,6 @@ import com.appsflyer.AppsFlyerLib
 import com.clevertap.android.sdk.CleverTapAPI
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
-import com.rummytitans.playcashrummyonline.cardgame.ui.profile.ProfileActivity
-import javax.inject.Inject
 
 class DeepLinkActivity : BaseActivity(), DeepLinkNavigator {
 

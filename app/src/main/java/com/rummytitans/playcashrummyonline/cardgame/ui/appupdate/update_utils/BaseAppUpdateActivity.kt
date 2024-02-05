@@ -20,6 +20,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -249,6 +250,8 @@ abstract class BaseAppUpdateActivity : BaseActivity(), FileDownloadInterface {
 
     override fun onStop() {
         super.onStop()
+        Log.e("appUpdate", "onStop Act")
+
         mInAppUpdateHelper?.activityOnStop()
     }
 

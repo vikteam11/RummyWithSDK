@@ -46,7 +46,6 @@ import com.rummytitans.playcashrummyonline.cardgame.models.VersionModel
 import com.rummytitans.playcashrummyonline.cardgame.ui.WebViewActivity
 import com.rummytitans.playcashrummyonline.cardgame.ui.appupdate.AppUpdateActivity
 import com.rummytitans.playcashrummyonline.cardgame.ui.appupdate.AppUpdateBottomSheetActivity
-import com.rummytitans.playcashrummyonline.cardgame.ui.verifications.AddressVerificationActivity
 import com.rummytitans.playcashrummyonline.cardgame.utils.MyConstants.DATE_TYPE
 import com.rummytitans.playcashrummyonline.cardgame.utils.MyConstants.HOURS_TYPE
 import com.rummytitans.playcashrummyonline.cardgame.utils.bottomsheets.LottieBottomSheetDialog
@@ -633,28 +632,7 @@ fun Activity.hasPermissions(permissions: Array<String>): Boolean{
 }
 
 
-fun Activity.launchAddressVerificationScreen(verificationRejectMessage:String,fromDeepLink:Boolean=false){
-    val intent = Intent(
-        this,
-        AddressVerificationActivity::class.java)
-        .putExtra("FROM_SPLASH", false)
-        .putExtra(MyConstants.INTENT_PASS_VERIFICATION_REJECT_MSG,verificationRejectMessage)
-    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK  or Intent.FLAG_ACTIVITY_CLEAR_TOP
-    startActivityForResult(
-        intent
-        ,MyConstants.REQUEST_UPDATE_VERIFY_DETAILS)
-}
 
-
-fun Fragment.launchAddressVerificationScreen(verificationRejectMessage:String){
-    val intent = Intent(requireContext(),AddressVerificationActivity::class.java)
-        .putExtra("FROM_SPLASH", false)
-        .putExtra(MyConstants.INTENT_PASS_VERIFICATION_REJECT_MSG,verificationRejectMessage)
-    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK  or Intent.FLAG_ACTIVITY_CLEAR_TOP
-    startActivityForResult(
-        intent
-        ,MyConstants.REQUEST_UPDATE_VERIFY_DETAILS)
-}
 
 fun Activity.showRestrictLocationDialog(msg:String){
     val alertDialog = LottieBottomSheetDialog(

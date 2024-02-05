@@ -17,6 +17,8 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.rummytitans.playcashrummyonline.cardgame.MainApplication
+import com.rummytitans.playcashrummyonline.cardgame.utils.MyConstants.APP_UPDATE_BOTTOM_SHEET
+import com.rummytitans.playcashrummyonline.cardgame.utils.MyConstants.APP_UPDATE_FULL_SCREEN
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -62,6 +64,9 @@ class LaunchViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.Status) {
+                        //it.Response.IsAppUpdate = true
+                        //it.Response.UpdateType = APP_UPDATE_FULL_SCREEN
+                        //it.Response.playStoreApkUpdateFrom = it.Response.UPDATE_FROM_IN_APP_UPDATE
                         it.Response.enableAppUpdateBtn=if (BuildConfig.isPlayStoreApk==1)
                             it.Response.IsAppUpdate && prefs.isInAppAvailable
                         else it.Response.IsAppUpdate

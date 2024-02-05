@@ -1,4 +1,4 @@
-package com.rummytitans.playcashrummyonline.cardgame.ui.profile.info
+package com.rummytitans.playcashrummyonline.cardgame.ui.common
 
 interface MainNavigationFragment {
 

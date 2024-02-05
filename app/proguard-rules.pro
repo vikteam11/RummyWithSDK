@@ -21,14 +21,15 @@
 -dontwarn com.sothree.**
 -keep class com.sothree.**
 -keep interface com.sothree.**
-
+-keep class com.rummytitans.sdk.cardgame.ui.** {*;}
 #juspay
 -dontwarn in.juspay.**
 -keep class androidx.** {*;}
 -keep class com.rummytitans.playcashrummyonline.cardgame.models.** {*;}
 -keep class com.rummytitans.playcashrummyonline.cardgame.ui.quiz.realtime.question.** {*;}
 -keep class com.rummytitans.playcashrummyonline.cardgame.ui.** {*;}
-
+-keep class androidx.lifecycle.ViewModel.** { *; }
+-keep class com.rummytitans.playcashrummyonline.cardgame.** { *; }
 -dontwarn com.squareup.okhttp.**
 
 -dontwarn io.hansel.**

@@ -12,8 +12,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
+@HiltViewModel
 class AppUpdateViewModel @Inject constructor(val prefs: SharedPreferenceStorage, val gson: Gson,val analyticsHelper: AnalyticsHelper) :
     BaseViewModel<com.rummytitans.playcashrummyonline.cardgame.ui.base.BaseNavigator>() {
     @JvmField

@@ -292,7 +292,7 @@ class NewLoginActivity : BaseActivity(), NewLoginNavigator, OtpReceiver.OTPRecei
 
     fun goToHelp(v: View) {
         mViewModel.analyticsHelper.fireEvent(
-            AnalyticsKey.Names.UserLogin, bundleOf(
+            AnalyticsKey.Names.ButtonClick, bundleOf(
                 AnalyticsKey.Keys.ButtonName to AnalyticsKey.Values.NeedHelp,
                 AnalyticsKey.Keys.Screen to AnalyticsKey.Screens.LOGIN
             )
