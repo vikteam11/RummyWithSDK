@@ -123,6 +123,10 @@ class NewLoginActivity : BaseActivity(), NewLoginNavigator, OtpReceiver.OTPRecei
                 AnalyticsKey.Keys.Screen to AnalyticsKey.Screens.LOGIN
             )
         )
+
+        if(TextUtils.isEmpty(mViewModel.prefs.loginAuthTokan)){
+            mViewModel.getSplashResponse()
+        }
     }
 
     private fun fetchAdvertisingId() {

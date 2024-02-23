@@ -11,15 +11,16 @@ import java.util.concurrent.TimeUnit
 object MyConstants {
 
 
-    const val PRODUCTION_URL = "https://app.myteam11.com/"
-    const val STAGING_URL = "https://api.goteam11.com/"
+    //const val PRODUCTION_URL = "https://app.myteam11.com/"
+   // const val STAGING_URL = "https://api.goteam11.com/"
+    const val STAGING_URL = "https://rd.goteam11.com/"
     const val REDIS_URL = "https://redis.goteam11.com/"
     const val N2_URL = "https://n2.myteam11.com/"
 
-    const val SPLASH_URL =  "https://api.myteam11.com"
+    //const val SPLASH_URL =  "https://api.myteam11.com"
     //const val SPLASH_URL =  "https://app2.goteam11.com"
-    //const val SPLASH_URL =  "https://rd.goteam11.com"
-    const val APP_CURRENT_URL = PRODUCTION_URL
+    const val SPLASH_URL =  "https://rd.goteam11.com"
+    const val APP_CURRENT_URL = STAGING_URL
     //const val GAME_PLAY_URL = "http://15.207.63.62:7000/" // local host game play
     //const val GAME_PLAY_URL = "https://n2.mt11games.com:7000" // stagging game play
     //const val GAME_PLAY_URL = "https://rummytitans.mt11games.com/" // pre production game play

@@ -145,8 +145,9 @@ class MainActivity : BaseActivity(),RummyTitansCallback,AnalticsCallback, DeepLi
     }
 
     override fun checkIsAppUpdateAvailable(activity: Activity) {
+        viewModel.prefs.isInAppAvailable=false
+        RummyTitanSDK.setUpdateInfo(activity,viewModel.prefs.isInAppAvailable)
         if (BuildConfig.isPlayStoreApk==1 && viewModel.versionResp.IsAppUpdate) {
-            viewModel.prefs.isInAppAvailable=false
             RummyTitanSDK.setUpdateInfo(activity,viewModel.prefs.isInAppAvailable)
             val isRequestUpdate=viewModel.versionResp.IsAppUpdate
                     && viewModel.versionResp.playStoreApkUpdateFrom==viewModel.versionResp.UPDATE_FROM_IN_APP_UPDATE

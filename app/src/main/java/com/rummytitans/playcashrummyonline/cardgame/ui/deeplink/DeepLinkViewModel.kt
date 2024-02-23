@@ -37,6 +37,7 @@ class DeepLinkViewModel @Inject constructor(
         ), {
             if (it.Status) {
                 prefs.splashResponse = gson.toJson(it.Response)
+                prefs.loginAuthTokan = it.Response.LoginAuthTokan ?: ""
                 isForceUpdate.value = it.Response
             }
         })

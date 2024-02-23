@@ -64,8 +64,8 @@ class LaunchViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.Status) {
-                        //it.Response.IsAppUpdate = true
-                        //it.Response.UpdateType = APP_UPDATE_FULL_SCREEN
+                       // it.Response.IsAppUpdate = true
+                        //it.Response.UpdateType = APP_UPDATE_BOTTOM_SHEET
                         //it.Response.playStoreApkUpdateFrom = it.Response.UPDATE_FROM_IN_APP_UPDATE
                         it.Response.enableAppUpdateBtn=if (BuildConfig.isPlayStoreApk==1)
                             it.Response.IsAppUpdate && prefs.isInAppAvailable

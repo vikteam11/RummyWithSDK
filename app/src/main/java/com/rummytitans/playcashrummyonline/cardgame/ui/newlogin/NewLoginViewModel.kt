@@ -67,7 +67,7 @@ class NewLoginViewModel @Inject constructor(
     var mPassword = ""
     private val emptyJson = JSONObject()
     var appsFlyerId = ""
-
+    val loginResponse = gson.fromJson(prefs.loginResponse, LoginResponse::class.java)
     init {
         kotlin.runCatching {
             wrongOtpErrorMSg.set(navigator.getStringResource(R.string.you_have_entered_wrong_verification_code))
@@ -88,6 +88,18 @@ class NewLoginViewModel @Inject constructor(
 
     fun togglePasswordVisibility() {
         isHidePassword.set(!isHidePassword.get())
+    }
+
+    fun getSplashResponse() {
+        val apis = getApiEndPointObject(MyConstants.SPLASH_URL)
+        apiCall(apis.getVersion(
+            0, BuildConfig.VERSION_CODE,BuildConfig.VERSION_CODE, ""
+        ), {
+            if (it.Status) {
+                prefs.splashResponse = gson.toJson(it.Response)
+                prefs.loginAuthTokan = it.Response.LoginAuthTokan ?: ""
+            }
+        })
     }
 
     fun loginOrRegisterByMobile(isResendOTP: Boolean = false) {

@@ -23,6 +23,7 @@ import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.gson.Gson
 import com.rummytitans.playcashrummyonline.cardgame.utils.alertDialog.AlertdialogModel
+import com.rummytitans.playcashrummyonline.cardgame.utils.redirectToPlayStore
 import com.rummytitans.sdk.cardgame.RummyTitanSDK
 import java.lang.ref.WeakReference
 
@@ -48,11 +49,22 @@ class InAppUpdateHelper (
         gson.fromJson(prefs.splashResponse, VersionModel::class.java)
 
     fun startInAppUpdateIntent(){
-        inAppUpdateModel?.let {
-            prefs.isInAppAvailable=false
+        kotlin.runCatching {
             analyticsHelper.fireEvent(AnalyticsKey.Names.InAppUpdateStart)
-            appUpdateManager?.startUpdateFlowForResult(it.appUpdateInfo,it.updateType,activity,it.requestCode)
+        }.onFailure {
+            Log.e("Inappupdate", "startInAppUpdateIntent Exc $it")
         }
+        kotlin.runCatching {
+            inAppUpdateModel?.let {
+                prefs.isInAppAvailable=false
+                appUpdateManager?.startUpdateFlowForResult(it.appUpdateInfo,it.updateType,activity,it.requestCode)
+            }
+        }.onFailure {
+            if(!activity.isFinishing){
+               activity.redirectToPlayStore(activity.packageName)
+            }
+        }
+
     }
 
     fun activityOnResume(){

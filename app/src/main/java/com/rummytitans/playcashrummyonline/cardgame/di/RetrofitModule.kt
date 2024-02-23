@@ -4,6 +4,7 @@ import android.os.Build
 import android.text.TextUtils
 import com.google.gson.Gson
 import com.rummytitans.playcashrummyonline.cardgame.BuildConfig
+import com.rummytitans.playcashrummyonline.cardgame.MainApplication
 import com.rummytitans.playcashrummyonline.cardgame.api.APIInterface
 import com.rummytitans.playcashrummyonline.cardgame.data.SharedPreferenceStorage
 import com.rummytitans.playcashrummyonline.cardgame.utils.MyConstants
@@ -37,7 +38,7 @@ class RetrofitModule {
     @Provides
     @Rummy
     fun getRetrofit(@Rummy okHttpClient: OkHttpClient):Retrofit {
-        val baseurl = MyConstants.APP_CURRENT_URL
+        val baseurl = MainApplication.appUrl
         val baseApiUrl= if (TextUtils.isEmpty(baseurl))
           MyConstants.APP_CURRENT_URL
         else
