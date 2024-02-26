@@ -145,13 +145,16 @@ class MainActivity : BaseActivity(),RummyTitansCallback,AnalticsCallback, DeepLi
     }
 
     override fun checkIsAppUpdateAvailable(activity: Activity) {
-        viewModel.prefs.isInAppAvailable=false
-        RummyTitanSDK.setUpdateInfo(activity,viewModel.prefs.isInAppAvailable)
-        if (BuildConfig.isPlayStoreApk==1 && viewModel.versionResp.IsAppUpdate) {
+        val isRequestUpdateFromServer = viewModel.versionResp.IsAppUpdate
+        viewModel.prefs.isInAppAvailable = isRequestUpdateFromServer
+
+        if (BuildConfig.isPlayStoreApk==1 && isRequestUpdateFromServer) {
             RummyTitanSDK.setUpdateInfo(activity,viewModel.prefs.isInAppAvailable)
-            val isRequestUpdate=viewModel.versionResp.IsAppUpdate
+
+            val isRequestUpdateFromInApp = isRequestUpdateFromServer
                     && viewModel.versionResp.playStoreApkUpdateFrom==viewModel.versionResp.UPDATE_FROM_IN_APP_UPDATE
-            if(isRequestUpdate) {
+
+            if(isRequestUpdateFromInApp) {
                 mInAppUpdateHelper = InAppUpdateHelper(activity, viewModel.analyticsHelper, viewModel.prefs, viewModel.gson)
                 mInAppUpdateHelper?.requestInAppUpdateAvailability {
                     viewModel.versionResp.enableAppUpdateBtn = viewModel.prefs.isInAppAvailable
@@ -159,9 +162,10 @@ class MainActivity : BaseActivity(),RummyTitansCallback,AnalticsCallback, DeepLi
                     RummyTitanSDK.setUpdateInfo(activity,viewModel.prefs.isInAppAvailable)
                     viewModel.prefs.splashResponse = viewModel.gson.toJson(viewModel.versionResp)
                     viewModel.versionResp = viewModel.gson.fromJson(viewModel.prefs.splashResponse, VersionModel::class.java)
-                    if (viewModel.versionResp.ForceUpdate) checkForUpdate()
                 }
             }
+            if (isRequestUpdateFromServer && viewModel.versionResp.ForceUpdate)
+                checkForUpdate()
         }
     }
 
