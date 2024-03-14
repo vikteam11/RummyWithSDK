@@ -73,7 +73,7 @@ class RetrofitModule {
             builder.addHeader("GameType", "1")
             builder.addHeader("DeviceName", Build.MODEL)
             builder.addHeader("DeviceOS", "Android")
-            builder.addHeader("IsPlayStore",BuildConfig.isPlayStoreApk.toString())
+            builder.addHeader("IsPlayStore",BuildConfig.installFrom.toString())
 //            pref.toUserDetail(gson)?.let {
 //                builder.addHeader("UserId", it.UserId.toString())
 //                builder.addHeader("AuthExpire", it.AuthExpire)

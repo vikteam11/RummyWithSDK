@@ -324,7 +324,7 @@ abstract class BaseViewModel<N>(val conn: ConnectionDetector? = null) : ViewMode
                     .addHeader("AppVersion", BuildConfig.VERSION_CODE.toString())
                     .addHeader("AppType", "${MyConstants.APP_TYPE}")
                     .addHeader("GameType", "1")
-                    .addHeader("IsPlayStore", BuildConfig.isPlayStoreApk.toString())
+                    .addHeader("IsPlayStore", BuildConfig.installFrom.toString())
                     .addHeader("DeviceName", Build.MODEL)
                     .addHeader("DeviceOS", "Android").build()
             return@Interceptor chain.proceed(requestBuilder)

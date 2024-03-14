@@ -13,8 +13,10 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.rummytitans.playcashrummyonline.cardgame.BuildConfig
 import com.rummytitans.playcashrummyonline.cardgame.models.CarouselModel
 import com.rummytitans.playcashrummyonline.cardgame.utils.MyConstants.APP_UPDATE_BOTTOM_SHEET
+import com.rummytitans.playcashrummyonline.cardgame.utils.sendToExternalBrowser
 
 
 class AppUpdateBottomSheetActivity : BaseAppUpdateActivity() ,BottomSheetEvents{
@@ -50,23 +52,27 @@ class AppUpdateBottomSheetActivity : BaseAppUpdateActivity() ,BottomSheetEvents{
             }
             btnUpdateApp.setOnClickListener {
                 val versionModel = mViewModel.versionResp
-                when (versionModel.playStoreApkUpdateFrom) {
+                if(BuildConfig.installFrom == 2){
+                    sendToExternalBrowser(this@AppUpdateBottomSheetActivity,versionModel.WebURl)
+                }else{
+                    when (versionModel.playStoreApkUpdateFrom) {
 
-                    versionModel.UPDATE_FROM_APP_STORE -> {
-                        sendToPlayStore(this@AppUpdateBottomSheetActivity, packageName)
-                        if (!mViewModel.versionResp.ForceUpdate) onSheetClose()
-                    }
-
-                    versionModel.UPDATE_FROM_IN_APP_UPDATE ->
-                        mInAppUpdateHelper?.requestInAppUpdateAvailability {appUpdateInfo->
-                            if(appUpdateInfo!=null)
-                                mInAppUpdateHelper?.startInAppUpdateIntent()
-                            else
-                                sendToPlayStore(this@AppUpdateBottomSheetActivity, packageName)
-                            onSheetClose(false)
+                        versionModel.UPDATE_FROM_APP_STORE -> {
+                            sendToPlayStore(this@AppUpdateBottomSheetActivity, packageName)
+                            if (!mViewModel.versionResp.ForceUpdate) onSheetClose()
                         }
 
-                    else -> onDownloadPerform()
+                        versionModel.UPDATE_FROM_IN_APP_UPDATE ->
+                            mInAppUpdateHelper?.requestInAppUpdateAvailability {appUpdateInfo->
+                                if(appUpdateInfo!=null)
+                                    mInAppUpdateHelper?.startInAppUpdateIntent()
+                                else
+                                    sendToPlayStore(this@AppUpdateBottomSheetActivity, packageName)
+                                onSheetClose(false)
+                            }
+
+                        else -> onDownloadPerform()
+                    }
                 }
             }
             val updateList = arrayListOf(

@@ -15,8 +15,10 @@ import android.os.*
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.rummytitans.playcashrummyonline.cardgame.BuildConfig
 import com.rummytitans.playcashrummyonline.cardgame.databinding.ActivityAppUpdateOldBinding
 import com.rummytitans.playcashrummyonline.cardgame.models.CarouselModel
+import com.rummytitans.playcashrummyonline.cardgame.utils.sendToExternalBrowser
 import java.lang.Exception
 import java.lang.StringBuilder
 
@@ -51,22 +53,27 @@ class AppUpdateActivity : BaseAppUpdateActivity() {
         binding.txtUpdateLater.setOnClickListener { onUpdateLaterClick(mViewModel.versionResp) }
         binding.btnUpdateApp.setOnClickListener {
             val versionModel: VersionModel = mViewModel.versionResp
-            when (versionModel.playStoreApkUpdateFrom) {
+            if(BuildConfig.installFrom ==2){
+                sendToExternalBrowser(this,versionModel.WebURl)
+            }else{
+                when (versionModel.playStoreApkUpdateFrom) {
 
-                versionModel.UPDATE_FROM_IN_APP_UPDATE ->
-                    mInAppUpdateHelper?.requestInAppUpdateAvailability {appUpdateInfo->
-                        if(appUpdateInfo!=null)
-                            mInAppUpdateHelper?.startInAppUpdateIntent()
-                        else
-                            sendToPlayStore(this, packageName)
-                        onBackPressed()
-                    }
+                    versionModel.UPDATE_FROM_IN_APP_UPDATE ->
+                        mInAppUpdateHelper?.requestInAppUpdateAvailability {appUpdateInfo->
+                            if(appUpdateInfo!=null)
+                                mInAppUpdateHelper?.startInAppUpdateIntent()
+                            else
+                                sendToPlayStore(this, packageName)
+                            onBackPressed()
+                        }
 
-                versionModel.UPDATE_FROM_APP_STORE ->
-                    sendToPlayStore(this, packageName)
+                    versionModel.UPDATE_FROM_APP_STORE ->
+                        sendToPlayStore(this, packageName)
 
-                else -> onDownloadPerform()
+                    else -> onDownloadPerform()
+                }
             }
+
         }
 
         val updateList = arrayListOf(

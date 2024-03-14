@@ -16,8 +16,8 @@ android {
         applicationId "com.rummytitans.playcashrummyonline.cardgame"
         minSdkVersion 22
         targetSdkVersion 33
-        versionCode 64
-        versionName '1.6.4'
+        versionCode 70
+        versionName '1.7.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -67,11 +67,18 @@ android {
     productFlavors {
         playStoreApp{
             buildConfigField "int", "isPlayStoreApk", "1"
+            buildConfigField "int", "installFrom", "1"
         }
         legacyApp{
             buildConfigField "int", "isPlayStoreApk", "0"
+            buildConfigField "int", "installFrom", "0"
+        }
+        indusStore{
+            buildConfigField "int", "isPlayStoreApk", "0"
+            buildConfigField "int", "installFrom", "2"
         }
     }
+
     applicationVariants.all { variant ->
         variant.outputs.all {
             def flavor = variant.name
