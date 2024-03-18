@@ -1,6 +1,5 @@
 package com.rummytitans.playcashrummyonline.cardgame.ui.base
 import com.rummytitans.sdk.cardgame.data.SharedPreferenceStorageRummy
-import com.rummytitans.sdk.cardgame.games.rummy.FragmentRummyWebViewer
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.text.TextUtils

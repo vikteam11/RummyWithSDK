@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Base64
 import android.util.Log
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.clevertap.android.sdk.CleverTapAPI
 import com.google.firebase.messaging.FirebaseMessaging
 import com.rummytitans.playcashrummyonline.cardgame.BuildConfig
+import com.rummytitans.playcashrummyonline.cardgame.MainApplication
 import com.rummytitans.playcashrummyonline.cardgame.R
 import com.rummytitans.playcashrummyonline.cardgame.data.SharedPreferenceStorage
 import com.rummytitans.playcashrummyonline.cardgame.databinding.ActivityHomeBinding
@@ -52,7 +54,7 @@ class MainActivity : BaseActivity(),RummyTitansCallback,AnalticsCallback, DeepLi
         RummyTitanSDK.setOptions(
             RummySdkOptions(
                 currentAppType=8,
-                baseUrl = MyConstants.APP_CURRENT_URL,
+                baseUrl = viewModel.prefs.appUrl?:"",
                 baseUrl2  = viewModel.prefs.appUrl2?:"",
                 gamePlayUrl = MyConstants.GAME_PLAY_URL,
                 gameSplashUrl = MyConstants.SPLASH_URL,
@@ -185,6 +187,7 @@ class MainActivity : BaseActivity(),RummyTitansCallback,AnalticsCallback, DeepLi
         viewModel.prefs.loginCompleted = false
         finishAffinity()
         startActivity(Intent(this, NewLoginActivity::class.java))
+        finish()
     }
 
 
