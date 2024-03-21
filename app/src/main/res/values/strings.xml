@@ -1234,6 +1234,10 @@
     <string name="redemption_available">Redemption Available</string>
     <string name="gst_calculation" translatable="false">GST Calculation</string>
     <string name="clevertap_account_id" translatable="false">W69-R59-R96Z-RUMMYTITANS</string>
+    <string name="clevertap_token" translatable="false">c52-c60</string>
+  <!--  <string name="clevertap_account_id" translatable="false">Z69-R59-R96Z-RUMMYTITANS</string>
+    <string name="clevertap_token" translatable="false">TEST-XXXXXX</string>-->
+
 
 
 </resources>

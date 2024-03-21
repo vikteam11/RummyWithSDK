@@ -144,7 +144,8 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-            <intent-filter android:autoVerify="true">
+
+           <!-- <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -154,7 +155,7 @@
                     android:host="rummytitans.io"
                     android:pathPrefix="/open/"
                     android:scheme="https" />
-            </intent-filter>
+            </intent-filter>-->
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -282,9 +283,10 @@
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
             android:value="@string/clevertap_account_id"/>
+
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="c52-c60"/>
+            android:value="@string/clevertap_token"/>
         <meta-data
             android:name="CLEVERTAP_REGION"
             android:value="in1"/>

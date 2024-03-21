@@ -38,6 +38,7 @@ import com.google.gson.Gson
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent
 import com.rummytitans.playcashrummyonline.cardgame.BuildConfig
+import com.rummytitans.playcashrummyonline.cardgame.MainApplication
 import com.rummytitans.playcashrummyonline.cardgame.R
 import com.rummytitans.playcashrummyonline.cardgame.data.SharedPreferenceStorage
 import com.rummytitans.playcashrummyonline.cardgame.models.LoginResponse
@@ -481,7 +482,7 @@ fun String.toBase64() = try {
 fun copyCode(code: String?) {
     if (TextUtils.isEmpty(code)) return
     val clip = ClipData.newPlainText("code", code)
-    com.rummytitans.playcashrummyonline.cardgame.MainApplication.manager.setPrimaryClip(clip)
+    MainApplication.manager?.setPrimaryClip(clip)
 }
 
 fun JSONObject.toBundle(): Bundle {
