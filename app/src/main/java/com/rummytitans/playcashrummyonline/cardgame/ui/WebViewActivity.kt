@@ -19,8 +19,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
-import kotlinx.android.synthetic.main.fragment_webviews.*
-
 class WebViewActivity : AppCompatActivity() {
 
 

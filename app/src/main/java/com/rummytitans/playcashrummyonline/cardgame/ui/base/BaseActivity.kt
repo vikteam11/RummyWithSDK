@@ -19,6 +19,7 @@ import android.os.Environment
 import android.provider.CalendarContract
 import android.text.TextUtils
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -29,10 +30,9 @@ import androidx.lifecycle.Observer
 import com.appsflyer.AppsFlyerLib
 import com.onesignal.OSInAppMessageAction
 import com.onesignal.OneSignal
-import com.rummytitans.playcashrummyonline.cardgame.utils.alertDialog.AlertdialogModel
+import com.rummytitans.sdk.cardgame.utils.alertDialog.AlertdialogModel
 import com.tapadoo.alerter.Alerter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.dialog_app_update.*
 import java.io.File
 
 @AndroidEntryPoint
@@ -238,12 +238,15 @@ open class BaseActivity : AppCompatActivity(), BaseNavigator {
 
     fun showAppUpdateDialog(message: String) {
         val d = MyDialog(this).getMyDialog(R.layout.dialog_app_update)
+        var txtMsg = d.findViewById<TextView>(R.id.txtMsg)
+        var txtYes = d.findViewById<TextView>(R.id.txtYes)
+        var txtCancel = d.findViewById<TextView>(R.id.txtCancel)
         d.show()
-        d.txtMsg.text = message
-        d.txtYes.setOnClickListener {
+        txtMsg.text = message
+        txtYes.setOnClickListener {
             startActivity(Intent(this, AppUpdateActivity::class.java))
         }
-        d.txtCancel.setOnClickListener { d.dismiss() }
+        txtCancel.setOnClickListener { d.dismiss() }
     }
 
     private fun installApk(context: Context) {

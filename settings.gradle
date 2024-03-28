@@ -1,1 +1,38 @@
-include ':app', ':models'
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+        mavenLocal()
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://artifacts.netcore.co.in/artifactory/android' }
+        maven {url "https://maven.juspay.in/jp-build-packages/hyper-sdk/"}
+    }
+
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+        mavenLocal()
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://artifacts.netcore.co.in/artifactory/android' }
+        maven {url "https://maven.juspay.in/jp-build-packages/hyper-sdk/"}
+    }
+
+
+}
+rootProject.name = "MyTeamRummy"
+include ':app',':models'

@@ -4,29 +4,21 @@ import android.app.Activity
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Handler
-import android.os.Looper
 import android.view.*
 import android.widget.PopupWindow
+import android.widget.TextView
 import androidx.annotation.LayoutRes
+import androidx.constraintlayout.widget.Group
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.viewModelScope
-import com.rummytitans.playcashrummyonline.cardgame.R
-import com.rummytitans.playcashrummyonline.cardgame.databinding.DialogCouponAppliedBinding
-import com.rummytitans.playcashrummyonline.cardgame.databinding.DialogMessageV6Binding
-import com.rummytitans.playcashrummyonline.cardgame.utils.ConnectionDetector
-import com.rummytitans.playcashrummyonline.cardgame.utils.alertDialog.AlertdialogModel
-import com.rummytitans.playcashrummyonline.cardgame.utils.setOnClickListenerDebounce
-import kotlinx.android.synthetic.main.dialog_internet.*
-import kotlinx.android.synthetic.main.dialog_message.*
-import kotlinx.coroutines.*
-
+import com.rummytitans.sdk.cardgame.BR
+import com.rummytitans.sdk.cardgame.databinding.DialogCouponAppliedRummyBinding
+import com.rummytitans.sdk.cardgame.databinding.DialogMessageV6RummyBinding
 
 class MyDialog(private var act: Activity) {
 
     var internetDialog: Dialog? = null
-    private val handler = Handler(Looper.getMainLooper())
+
     fun getMyDialog(layout: Int): Dialog {
         val d = Dialog(act)
         d.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -48,7 +40,7 @@ class MyDialog(private var act: Activity) {
     }
 
     fun getFullScreenDialog(layout: View): Dialog {
-        val d = Dialog(act,R.style.DialogTheme)
+        val d = Dialog(act, com.rummytitans.sdk.cardgame.R.style.RummySdk_DialogTheme)
         d.window?.let { dialogWindow->
             dialogWindow.requestFeature(Window.FEATURE_NO_TITLE)
             dialogWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -89,20 +81,22 @@ class MyDialog(private var act: Activity) {
     fun noInternetDialog(
         retryListener: () -> Unit = { }
     ): Dialog {
-
+        var txtCancel : TextView?= null
+        var txtRetry : TextView?= null
         if (internetDialog == null) {
             internetDialog = Dialog(act)
             internetDialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
             internetDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            internetDialog?.setContentView(R.layout.dialog_internet)
+            internetDialog?.setContentView(com.rummytitans.sdk.cardgame.R.layout.dialog_internet_rummy)
             internetDialog?.setCancelable(false)
+            txtCancel = internetDialog?.findViewById<TextView>(com.rummytitans.sdk.cardgame.R.id.txtCancel)
+            txtRetry = internetDialog?.findViewById<TextView>(com.rummytitans.sdk.cardgame.R.id.txtRetry)
             if (internetDialog?.isShowing == false) {
                 kotlin.runCatching {
                     internetDialog?.show()
                 }.onFailure { print(it.message) }
             }
-
-            internetDialog?.txtCancel?.setOnClickListener {
+            txtCancel?.setOnClickListener {
                 internetDialog?.dismiss()
             }
         } else {
@@ -114,7 +108,7 @@ class MyDialog(private var act: Activity) {
             }
 
         }
-        internetDialog?.txtRetry?.setOnClickListener {
+        txtRetry?.setOnClickListener {
             internetDialog?.dismiss()
             retryListener()
         }
@@ -124,15 +118,18 @@ class MyDialog(private var act: Activity) {
     fun retryInternetDialog(
         retryListener: () -> Unit = { }
     ): Dialog? {
-
+        var ok : TextView?= null
+        var group : Group?= null
         if (internetDialog == null) {
             internetDialog = Dialog(act)
             internetDialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
             internetDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            internetDialog?.setContentView(R.layout.dialog_internet)
-            internetDialog?.ok?.text = "Retry"
-            internetDialog?.group?.visibility = View.GONE
-            internetDialog?.ok?.visibility = View.VISIBLE
+            internetDialog?.setContentView(com.rummytitans.sdk.cardgame.R.layout.dialog_internet_rummy)
+            ok = internetDialog?.findViewById(com.rummytitans.sdk.cardgame.R.id.ok)
+            group = internetDialog?.findViewById(com.rummytitans.sdk.cardgame.R.id.group)
+            ok?.text = "Retry"
+            group?.visibility = View.GONE
+            ok?.visibility = View.VISIBLE
             internetDialog?.setCancelable(false)
             if (internetDialog?.isShowing == false) {
                 try {
@@ -149,7 +146,7 @@ class MyDialog(private var act: Activity) {
             }
 
         }
-        internetDialog?.ok?.setOnClickListener {
+        ok?.setOnClickListener {
             internetDialog?.dismiss()
             retryListener()
         }
@@ -158,18 +155,19 @@ class MyDialog(private var act: Activity) {
 
     fun noInternetDialogExit(
         retryListener: () -> Unit = { },
-        cancelListener: () -> Unit = { },
-
+        cancelListener: () -> Unit = { }
     ): Dialog {
-
+        var txtCancel : TextView? = null
+        var txtRetry : TextView? = null
         if (internetDialog == null) {
             internetDialog = Dialog(act)
             internetDialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
             internetDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            internetDialog?.setContentView(R.layout.dialog_internet)
+            internetDialog?.setContentView(com.rummytitans.sdk.cardgame.R.layout.dialog_internet_rummy)
             internetDialog?.setCancelable(false)
-
-            internetDialog?.txtCancel?.text = "Exit"
+            txtCancel = internetDialog?.findViewById(com.rummytitans.sdk.cardgame.R.id.txtCancel)
+            txtRetry = internetDialog?.findViewById(com.rummytitans.sdk.cardgame.R.id.txtRetry)
+            txtCancel?.text = "Exit"
 
             if (internetDialog?.isShowing == false) {
                 try {
@@ -188,70 +186,13 @@ class MyDialog(private var act: Activity) {
 
         }
 
-        internetDialog?.txtCancel?.setOnClickListener {
+        txtCancel?.setOnClickListener {
             internetDialog?.dismiss()
             cancelListener()
         }
-
-        internetDialog?.txtRetry?.setOnClickListener {
+        txtRetry?.setOnClickListener {
             internetDialog?.dismiss()
-                    retryListener()
-
-
-
-        }
-        return internetDialog!!
-    }
-
-
-    fun noInternetDialogExitGamePlay(
-        connectionDetector: ConnectionDetector,
-        retryListener: () -> Unit = { },
-        cancelListener: () -> Unit = { },
-
-        ): Dialog {
-
-        if (internetDialog == null) {
-            internetDialog = Dialog(act)
-            internetDialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-            internetDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            internetDialog?.setContentView(R.layout.dialog_internet)
-            internetDialog?.setCancelable(false)
-
-            internetDialog?.txtCancel?.text = "Exit"
-
-            if (internetDialog?.isShowing == false) {
-                try {
-                    internetDialog?.show()
-                } catch (e: Exception) {
-                }
-            }
-
-        } else {
-            if (internetDialog?.isShowing == false) {
-                try {
-                    internetDialog?.show()
-                } catch (e: Exception) {
-                }
-            }
-
-        }
-
-        internetDialog?.txtCancel?.setOnClickListener {
-            internetDialog?.dismiss()
-            cancelListener()
-        }
-
-        internetDialog?.txtRetry?.setOnClickListenerDebounce(3000) {
-            CoroutineScope(Dispatchers.IO).launch{
-                val isConnected = connectionDetector.checkConnectionUsingHost()
-                withContext(Dispatchers.Main){
-                    if(isConnected) {
-                        internetDialog?.dismiss()
-                        retryListener()
-                    }
-                }
-            }
+            retryListener()
         }
         return internetDialog!!
     }
@@ -260,13 +201,15 @@ class MyDialog(private var act: Activity) {
     fun noInternetDialogExit(
         exit: () -> Unit = { }
     ): Dialog {
+        var txtRetry : TextView? = null
         internetDialog = Dialog(act)
         internetDialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         internetDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        internetDialog?.setContentView(R.layout.dialog_no_internet_exit)
+        internetDialog?.setContentView(com.rummytitans.sdk.cardgame.R.layout.dialog_no_internet_exit_rummy)
+        txtRetry = internetDialog?.findViewById(com.rummytitans.sdk.cardgame.R.id.txtRetry)
         internetDialog?.setCancelable(false)
         internetDialog?.show()
-        internetDialog?.txtRetry?.setOnClickListener {
+        txtRetry?.setOnClickListener {
             internetDialog?.dismiss()
             exit()
         }
@@ -278,12 +221,15 @@ class MyDialog(private var act: Activity) {
         retryListener: () -> Unit = { },
         onCancel: () -> Unit = {}
     ): Dialog {
-
+        var txtRetry : TextView? = null
+        var txtCancel : TextView? = null
         if (internetDialog == null) {
             internetDialog = Dialog(act)
             internetDialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
             internetDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            internetDialog?.setContentView(R.layout.dialog_internet)
+            internetDialog?.setContentView(com.rummytitans.sdk.cardgame.R.layout.dialog_internet_rummy)
+            txtRetry = internetDialog?.findViewById(com.rummytitans.sdk.cardgame.R.id.txtRetry)
+            txtCancel = internetDialog?.findViewById(com.rummytitans.sdk.cardgame.R.id.txtCancel)
             internetDialog?.setCancelable(false)
             if (internetDialog?.isShowing == false)
                 internetDialog?.show()
@@ -291,11 +237,11 @@ class MyDialog(private var act: Activity) {
             if (internetDialog?.isShowing == false)
                 internetDialog?.show()
         }
-        internetDialog?.txtCancel?.setOnClickListener {
+        txtCancel?.setOnClickListener {
             internetDialog?.dismiss()
             onCancel()
         }
-        internetDialog?.txtRetry?.setOnClickListener {
+        txtRetry?.setOnClickListener {
             internetDialog?.dismiss()
             retryListener()
         }
@@ -303,27 +249,19 @@ class MyDialog(private var act: Activity) {
     }
 
 
-    fun getMessageDialog(message: String) {
-        val dialog = getMyDialog(R.layout.dialog_message)
-        dialog.msg.text = message
-        dialog.show()
-        dialog.btnOkay.setOnClickListener {
-            dialog.dismiss()
-        }
-    }
 
-    fun getAlertDialog(model: AlertdialogModel):Dialog {
-        val bindingView = getDataBindingDialog<DialogMessageV6Binding>(R.layout.dialog_message_v6).apply {
+
+    fun getAlertDialog(model: com.rummytitans.sdk.cardgame.utils.alertDialog.AlertdialogModel):Dialog {
+        val bindingView = getDataBindingDialog<DialogMessageV6RummyBinding>(com.rummytitans.sdk.cardgame.R.layout.dialog_message_v6_rummy).apply {
             alertModel=model
         }
-         return getMyDialog(bindingView.root).apply {
+        return getMyDialog(bindingView.root).apply {
             setCancelable(false)
         }
     }
 
-
     fun showCouponAppliedDialog(title:String,des:String,color:String) {
-        val bindingView = getDataBindingDialog<DialogCouponAppliedBinding>(R.layout.dialog_coupon_applied).apply {
+        val bindingView = getDataBindingDialog<DialogCouponAppliedRummyBinding>(com.rummytitans.sdk.cardgame.R.layout.dialog_coupon_applied_rummy).apply {
             this.title = title
             this.description = des
             this.color = color
@@ -335,24 +273,28 @@ class MyDialog(private var act: Activity) {
         dialog.show()
     }
 
-    fun <T:ViewDataBinding> getAlertPopup(model: AlertdialogModel, @LayoutRes layoutName: Int):Dialog {
+    fun <T:ViewDataBinding> getAlertPopup(model: com.rummytitans.sdk.cardgame.utils.alertDialog.AlertdialogModel, @LayoutRes layoutName: Int):Dialog {
         val bindingView = getDataBindingDialog<T>(layoutName)
-       // bindingView.setVariable(BR.alertModel,model)
+        bindingView.setVariable(BR.alertModel,model)
         val dialog = getMyDialog(bindingView.root).apply {
             setCancelable(true)
         }
-        bindingView.root.findViewById<View>(R.id.btnPositive)?.setOnClickListener {
+        bindingView.root.findViewById<View>(com.rummytitans.sdk.cardgame.R.id.btnPositive)?.setOnClickListener {
             model.onPositiveClick.invoke()
             dialog.dismiss()
         }
-        bindingView.root.findViewById<View>(R.id.btnNegative)?.setOnClickListener {
+        bindingView.root.findViewById<View>(com.rummytitans.sdk.cardgame.R.id.btnNegative)?.setOnClickListener {
             model.onNegativeClick.invoke()
             dialog.dismiss()
         }
-        bindingView.root.findViewById<View>(R.id.btnClose)?.setOnClickListener {
+        bindingView.root.findViewById<View>(com.rummytitans.sdk.cardgame.R.id.btnClose)?.setOnClickListener {
             model.onCloseClick.invoke()
             dialog.dismiss()
         }
         return dialog
     }
+
+
+
+
 }

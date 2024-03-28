@@ -16,7 +16,7 @@
 -keep class sun.misc.Unsafe { *; }
 -dontwarn java.nio.file.*
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
-
+-keep class com.rummytitans.sdk.cardgame.ui.** {*;}
 -keep class com.google.gson.stream.** { *; }
 -dontwarn com.sothree.**
 -keep class com.sothree.**

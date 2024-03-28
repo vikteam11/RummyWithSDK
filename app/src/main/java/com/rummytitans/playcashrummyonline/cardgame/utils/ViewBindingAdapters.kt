@@ -323,18 +323,7 @@ fun setCaptainConditionalBackgroundCustomPrimary(
     view.setBackgroundColor(megaColor)
 }
 
-@BindingAdapter(value = ["setConditionalTextPrimary", "colorSecondary"], requireAll = true)
-fun setConditionalTextPrimary(
-    view: TextView, setConditionalBackgroundColorPrimary: Boolean, colorSecondary: Int
-) {
-    val outValue = TypedValue()
-    view.context.theme.resolveAttribute(R.attr.colorPrimary, outValue, true)
-    val megaColor = ContextCompat.getColor(
-        view.context,
-        if (setConditionalBackgroundColorPrimary) outValue.resourceId else colorSecondary
-    )
-    view.setTextColor(megaColor)
-}
+
 
 @BindingAdapter(value = ["setTabSelectedTextColor"], requireAll = true)
 fun setTabSelectedTextColor(view: TabLayout, setTabSelectedTextColor: Int) {
@@ -342,14 +331,7 @@ fun setTabSelectedTextColor(view: TabLayout, setTabSelectedTextColor: Int) {
     view.setSelectedTabIndicatorColor(setTabSelectedTextColor)
 }
 
-@BindingAdapter("setMegaTintBackground")
-fun setMegaTintBackground(view: View, color: Boolean) {
-    val outValue = TypedValue()
-    view.context.theme.resolveAttribute(R.attr.colorPrimary, outValue, true)
-    val megaColor =
-        ContextCompat.getColor(view.context, if (!color) outValue.resourceId else R.color.sand)
-    view.background.setColorFilter(megaColor, PorterDuff.Mode.SRC_ATOP)
-}
+
 
 @BindingAdapter("setTeamListBackground")
 fun setTeamListBackground(view: ConstraintLayout, color: Int) {

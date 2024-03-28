@@ -20,7 +20,6 @@ import com.rummytitans.playcashrummyonline.cardgame.ui.base.BaseActivity
 import com.rummytitans.playcashrummyonline.cardgame.ui.support.FragmentSupport
 import com.rummytitans.playcashrummyonline.cardgame.utils.MyConstants
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_common_fragment.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -55,7 +54,7 @@ class CommonFragmentActivity : BaseActivity() {
         viewModel.navigator = this
         binding.executePendingBindings()
 
-        icBack.setOnClickListener { onBackPressed() }
+        binding.icBack.setOnClickListener { onBackPressed() }
 
         setUpFragment(savedInstanceState)
 
@@ -68,7 +67,7 @@ class CommonFragmentActivity : BaseActivity() {
 
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(container?.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.container?.windowToken, 0)
     }
 
     fun updateTheme(colorCode: String) {
@@ -86,7 +85,7 @@ class CommonFragmentActivity : BaseActivity() {
         intent?.getStringExtra(MyConstants.INTENT_PASS_COMMON_TYPE).let {
 
             if (null == it) {
-                titile.text = "Help Desk"
+                binding.titile.text = "Help Desk"
                 var from = intent?.getStringExtra(MyConstants.INTENT_PASS_FROM) ?: ""
                 addFragment(FragmentSupport.newInstance(from))
                 return@let
@@ -94,7 +93,7 @@ class CommonFragmentActivity : BaseActivity() {
 
             when (it) {
                 "support" -> {
-                    titile.text = "Help Desk"
+                    binding.titile.text = "Help Desk"
                     val from = intent?.getStringExtra(MyConstants.INTENT_PASS_FROM) ?: ""
                     val requestDialog =
                         intent?.getStringExtra(MyConstants.INTENT_PASS_COMING_FROM) ?: ""
@@ -107,7 +106,7 @@ class CommonFragmentActivity : BaseActivity() {
     }
 
     fun addFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(fragment_container.id, fragment).commit()
+        supportFragmentManager.beginTransaction().replace(binding.fragmentContainer.id, fragment).commit()
     }
 
 
@@ -117,7 +116,7 @@ class CommonFragmentActivity : BaseActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        val currfrag = supportFragmentManager.findFragmentById(fragment_container.id)
+        val currfrag = supportFragmentManager.findFragmentById(binding.fragmentContainer.id)
         currfrag?.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 

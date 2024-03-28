@@ -16,6 +16,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import android.webkit.URLUtil
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -42,7 +43,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.dialog_internet.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -98,7 +98,7 @@ class SplashActivity : AppCompatActivity(),
 
         viewModel.failedReason.observe(this, Observer {
             if (it.message == "timeout") {
-                MyDialog(this).noInternetDialog { apiCall() }.txtCancel.setOnClickListener { finish() }
+                MyDialog(this).noInternetDialog { apiCall() }.findViewById<TextView>(R.id.txtCancel).setOnClickListener { finish() }
             } else showError(R.string.something_went_wrong_restart)
         })
 
